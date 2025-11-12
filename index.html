@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Care Act Decision Flowchart</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+  .question { font-size: 20px; margin-bottom: 20px; }
+  button { font-size: 16px; margin-right: 10px; padding: 10px 20px; }
+  #history { margin-top: 30px; font-style: italic; color: #555; }
+</style>
+</head>
+<body>
+  <div id="app">
+    <div class="question" id="question"></div>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+    <button id="backBtn">Back</button>
+    <div id="history"></div>
+  </div>
+
+<script>
+const steps = {
+  A: { text: "Would X experience substantial difficulty?", yes: "B", no: "END" },
+  B: { text: "Appropriate person to represent and support X?", yes: "D", no: "DOC1" },
+  D: { text: "Will Care Act decision likely result in NHS arranging accommodation in hospital 28 days or more or care home 8 weeks or more?", yes: "E", no: "F" },
+  E: { text: "Is LA satisfied that it is in X's best interests to instruct advocate?", yes: "DOC3", no: "F" },
+  F: { text: "Disagreement on material issue between LA and appropriate person supporting X?", yes: "G", no: "END" },
+  G: { text: "Do LA and appropriate person supporting X agree need for advocate?", yes: "DOC4", no: "END" },
+  DOC1: { text: "Outcome: Instruct (Doc1).", yes: null, no: null },
+  DOC3: { text: "Outcome: Instruct (Doc3).", yes: null, no: null },
+  DOC4: { text: "Outcome: Instruct (Doc4).", yes: null, no: null },
+  END: { text: "Outcome: Don’t Instruct.", yes: null, no: null }
+};
+
+let history = [];
+let currentStep = "A";
+
+function updateUI() {
+  const questionDiv = document.getElementById('question');
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const backBtn = document.getElementById('backBtn');
+  const historyDiv = document.getElementById('history');
+
+  let step = steps[currentStep];
+  questionDiv.textContent = step.text;
+
+  if (currentStep === "END" || currentStep.startsWith("DOC")) {
+    yesBtn.style.display = 'none';
+    noBtn.style.display = 'none';
+  } else {
+    yesBtn.style.display = 'inline-block';
+    noBtn.style.display = 'inline-block';
+  }
+
+  backBtn.disabled = history.length === 0;
+
+  // Update history display
+  historyDiv.textContent = "History: " + history.map(h => h.step).concat(currentStep).map(s => steps[s].text).join(" -> ");
+}
+
+function goToStep(nextStep) {
+  if (nextStep !== null) {
+    history.push({ step: currentStep });
+    currentStep = nextStep;
+    updateUI();
+  }
+}
+
+document.getElementById('yesBtn').addEventListener('click', () => {
+  goToStep(steps[currentStep].yes);
+});
+document.getElementById('noBtn').addEventListener('click', () => {
+  goToStep(steps[currentStep].no);
+});
+document.getElementById('backBtn').addEventListener('click', () => {
+  if (history.length > 0) {
+    currentStep = history.pop().step;
+    updateUI();
+  }
+});
+
+// Initialization
+updateUI();
+</script>
+
+</body>
+</html>
