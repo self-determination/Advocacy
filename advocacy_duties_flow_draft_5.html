@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Care Act Independent Advocacy - Section 67 Flowchart (v5)</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --text-secondary: #4a4a6a;
+    --accent: #2c5282;
+    --accent-light: #ebf4ff;
+    --border: #cbd5e0;
+    --btn-primary: #2c5282;
+    --btn-primary-hover: #1a365d;
+    --btn-yes: #276749;
+    --btn-yes-hover: #1a4731;
+    --btn-no: #9b2c2c;
+    --btn-no-hover: #742a2a;
+    --btn-back: #6b7280;
+    --btn-back-hover: #4b5563;
+    --btn-neutral: #5a67d8;
+    --btn-neutral-hover: #434190;
+    --decision-bg: #fffbeb;
+    --decision-border: #d69e2e;
+    --action-bg: #ebf8ff;
+    --action-border: #3182ce;
+    --duty-bg: #f0fff4;
+    --duty-border: #38a169;
+    --info-bg: #faf5ff;
+    --info-border: #805ad5;
+    --loop-bg: #fff5f5;
+    --loop-border: #e53e3e;
+    --shadow: 0 4px 16px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --font-size-base: 18px;
+    --font-size-small: 14px;
+    --font-size-h1: 28px;
+    --font-size-h2: 22px;
+    --font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  .high-contrast {
+    --bg: #000000;
+    --card-bg: #1a1a1a;
+    --text: #ffffff;
+    --text-secondary: #e0e0e0;
+    --accent: #6db3f2;
+    --accent-light: #1a2a3a;
+    --border: #555555;
+    --btn-primary: #4a90d9;
+    --btn-primary-hover: #6db3f2;
+    --btn-yes: #48bb78;
+    --btn-yes-hover: #68d391;
+    --btn-no: #fc8181;
+    --btn-no-hover: #feb2b2;
+    --btn-back: #a0aec0;
+    --btn-back-hover: #cbd5e0;
+    --btn-neutral: #a3bffa;
+    --btn-neutral-hover: #c3dafe;
+    --decision-bg: #2d2200;
+    --decision-border: #ecc94b;
+    --action-bg: #0a1929;
+    --action-border: #63b3ed;
+    --duty-bg: #0a2918;
+    --duty-border: #68d391;
+    --info-bg: #1a0a2e;
+    --info-border: #b794f4;
+    --loop-bg: #2d0a0a;
+    --loop-border: #fc8181;
+    --shadow: 0 4px 16px rgba(255,255,255,0.05);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    min-height: 100vh;
+    transition: all 0.3s ease;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 8px;
+    background: var(--btn-primary);
+    color: #fff;
+    padding: 8px 16px;
+    z-index: 1000;
+    border-radius: 0 0 8px 8px;
+    font-size: var(--font-size-base);
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 0; }
+
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  header p {
+    font-size: var(--font-size-small);
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  header a { color: #bee3f8; }
+
+  /* Accessibility toolbar */
+  .a11y-toolbar {
+    background: var(--card-bg);
+    border-bottom: 2px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+  .a11y-toolbar label {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-right: 4px;
+  }
+  .a11y-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text);
+    font-size: var(--font-size-small);
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+  .a11y-btn:hover, .a11y-btn:focus {
+    border-color: var(--accent);
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .a11y-btn[aria-pressed="true"] {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .a11y-btn svg { width: 18px; height: 18px; }
+  .a11y-separator {
+    width: 1px;
+    height: 30px;
+    background: var(--border);
+  }
+
+  /* Progress bar */
+  .progress-container {
+    max-width: 800px;
+    margin: 20px auto 0;
+    padding: 0 24px;
+  }
+  .progress-label {
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  /* Main content */
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .step-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px;
+    border-left: 6px solid var(--accent);
+    animation: fadeIn 0.35s ease;
+    position: relative;
+  }
+  .step-card.decision { border-left-color: var(--decision-border); background: var(--decision-bg); }
+  .step-card.action { border-left-color: var(--action-border); background: var(--action-bg); }
+  .step-card.duty { border-left-color: var(--duty-border); background: var(--duty-bg); }
+  .step-card.info { border-left-color: var(--info-border); background: var(--info-bg); }
+  .step-card.loop { border-left-color: var(--loop-border); background: var(--loop-bg); }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-type-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .badge-decision { background: #fefcbf; color: #744210; }
+  .badge-duty { background: #c6f6d5; color: #22543d; }
+  .badge-power { background: #e9d8fd; color: #44337a; }
+  .badge-action { background: #bee3f8; color: #2a4365; }
+  .badge-info { background: #e9d8fd; color: #44337a; }
+  .badge-loop { background: #fed7d7; color: #742a2a; }
+
+  .high-contrast .badge-decision { background: #744210; color: #fefcbf; }
+  .high-contrast .badge-duty { background: #22543d; color: #c6f6d5; }
+  .high-contrast .badge-power { background: #44337a; color: #e9d8fd; }
+  .high-contrast .badge-action { background: #2a4365; color: #bee3f8; }
+  .high-contrast .badge-info { background: #44337a; color: #e9d8fd; }
+  .high-contrast .badge-loop { background: #742a2a; color: #fed7d7; }
+
+  .step-title {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .step-description {
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.8;
+  }
+
+  .legal-context {
+    background: var(--accent-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: calc(var(--font-size-base) - 2px);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .legal-context strong { color: var(--text); }
+
+  .step-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    line-height: 1.4;
+    min-height: 48px;
+  }
+  .btn:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .btn-next { background: var(--btn-primary); color: #fff; }
+  .btn-next:hover { background: var(--btn-primary-hover); transform: translateY(-1px); }
+  .btn-yes { background: var(--btn-yes); color: #fff; }
+  .btn-yes:hover { background: var(--btn-yes-hover); transform: translateY(-1px); }
+  .btn-no { background: var(--btn-no); color: #fff; }
+  .btn-no:hover { background: var(--btn-no-hover); transform: translateY(-1px); }
+  .btn-back { background: var(--btn-back); color: #fff; }
+  .btn-back:hover { background: var(--btn-back-hover); }
+  .btn-neutral { background: var(--btn-neutral); color: #fff; }
+  .btn-neutral:hover { background: var(--btn-neutral-hover); transform: translateY(-1px); }
+  .btn-restart { background: var(--loop-border); color: #fff; }
+  .btn-restart:hover { opacity: 0.9; }
+
+  .back-row {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* History panel */
+  .history-toggle {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .history-panel {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    padding: 0 24px;
+  }
+  .history-panel details {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .history-panel summary {
+    padding: 16px 24px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    color: var(--text);
+    list-style: none;
+  }
+  .history-panel summary::before {
+    content: "Show ";
+  }
+  .history-panel details[open] summary::before {
+    content: "Hide ";
+  }
+  .history-panel summary::-webkit-details-marker { display: none; }
+  .history-list {
+    padding: 0 24px 20px;
+    list-style: none;
+  }
+  .history-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: calc(var(--font-size-base) - 2px);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .history-list li:last-child { border-bottom: none; }
+  .history-number {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    min-width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .history-answer {
+    font-weight: 700;
+    margin-left: 4px;
+  }
+  .history-answer.yes { color: var(--btn-yes); }
+  .history-answer.no { color: var(--btn-no); }
+
+  footer {
+    text-align: center;
+    padding: 30px 24px 40px;
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  footer a { color: var(--accent); }
+
+  /* Font options */
+  .font-dyslexic { font-family: 'OpenDyslexic', 'Comic Sans MS', 'Trebuchet MS', sans-serif !important; }
+  .font-serif { font-family: Georgia, 'Times New Roman', serif !important; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header { padding: 16px; }
+    main { padding: 16px; }
+    .step-card { padding: 20px; }
+    .step-actions { flex-direction: column; }
+    .btn { width: 100%; justify-content: center; }
+    .a11y-toolbar { gap: 8px; padding: 10px 12px; }
+  }
+
+  /* Print styles */
+  @media print {
+    .a11y-toolbar, .skip-link, .btn-back, .back-row, .progress-container { display: none; }
+    .step-card { box-shadow: none; border: 2px solid #000; page-break-inside: avoid; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .step-card { animation: none; }
+    .btn:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header role="banner">
+  <h1>Care Act Independent Advocacy Flowchart</h1>
+  <p>An interactive guide to the duties and powers of the independent advocate under <a href="https://www.legislation.gov.uk/uksi/2014/2889/regulation/5" target="_blank" rel="noopener">The Care and Support (Independent Advocacy Support) (No. 2) Regulations 2014</a>, Regulation 5 (Section 67 of the Care Act 2014).</p>
+</header>
+
+<div class="a11y-toolbar" role="toolbar" aria-label="Accessibility options">
+  <label id="text-size-label">Text size:</label>
+  <button class="a11y-btn" onclick="changeSize(-2)" aria-label="Decrease text size" title="Decrease text size">A&minus;</button>
+  <button class="a11y-btn" onclick="changeSize(2)" aria-label="Increase text size" title="Increase text size">A+</button>
+  <button class="a11y-btn" onclick="resetSize()" aria-label="Reset text size" title="Reset text size">Reset</button>
+
+  <span class="a11y-separator" role="separator"></span>
+
+  <button class="a11y-btn" id="contrastBtn" onclick="toggleContrast()" aria-pressed="false" title="Toggle high contrast mode">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/></svg>
+    High Contrast
+  </button>
+
+  <span class="a11y-separator" role="separator"></span>
+
+  <label for="fontSelect">Font:</label>
+  <select id="fontSelect" class="a11y-btn" onchange="changeFont(this.value)" aria-label="Choose font style">
+    <option value="default">Default</option>
+    <option value="serif">Serif</option>
+    <option value="dyslexic">Dyslexia-friendly</option>
+  </select>
+</div>
+
+<div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Flowchart progress">
+  <div class="progress-label" id="progressLabel">Step 1 of approximately 20</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:5%"></div></div>
+</div>
+
+<main id="main-content" aria-live="polite" aria-atomic="true">
+  <div id="stepContainer"></div>
+</main>
+
+<div class="history-panel" id="historyPanel" style="display:none">
+  <details>
+    <summary>your journey so far</summary>
+    <ol class="history-list" id="historyList" role="list" aria-label="Steps you have completed"></ol>
+  </details>
+</div>
+
+<footer role="contentinfo">
+  <p>Based on <a href="https://www.legislation.gov.uk/uksi/2014/2889/regulation/5" target="_blank" rel="noopener">The Care and Support (Independent Advocacy Support) (No. 2) Regulations 2014, Regulation 5</a>. This tool is for informational and educational purposes. It does not constitute legal advice. The &ldquo;Continue monitoring and support&rdquo; step is a practical addition reflecting ongoing advocacy practice and does not appear in the Regulations themselves.</p>
+</footer>
+
+<script>
+// ============================================================
+// FLOWCHART DATA &mdash; v5
+//
+// Flow order now follows the Regulation structure, with 5(7)
+// and 5(8) grouped at the end as capacity/competence-contingent
+// duties that form a distinct section:
+//
+//   5(1)    &rarr; Start
+//   5(2)    &rarr; Steps 1 &amp; 2 (determine approach; well-being)
+//   5(3)(a) &rarr; Step 3 (meet in private)
+//   5(4)    &rarr; Capacity decision for consultations
+//   5(3)(b) &rarr; Consult BOTH groups (professionals + family/carers)
+//   5(5)(a)(i)-(v) &rarr; Steps 8, 9, 10, 11, then challenge decision (12)
+//   5(5)(b) &rarr; Steps 13, 14
+//   5(5)(c) &rarr; Steps 15, 16
+//   5(6)    &rarr; Records (power)
+//   5(5)(d) &rarr; Concerns / reports (Steps 17, 18)
+//   --- Capacity/competence-contingent duties ---
+//   5(7)    &rarr; Communication (Steps 21, 22) &mdash; only where lacks capacity/competence
+//   5(8)    &rarr; Step 24 (mandatory challenge) &mdash; only where lacks capacity/competence
+//   Continue monitoring (practical addition)
+// ============================================================
+const steps = {
+
+// ---------------------------------------------------------------
+// START &mdash; Reg 5(1)
+// ---------------------------------------------------------------
+start: {
+  type: 'action',
+  badge: 'Starting Point',
+  title: 'Independent Advocate Appointed',
+  desc: `A local authority has determined that an independent advocate must be appointed under <strong>section 67 of the Care Act 2014</strong>. The advocate&rsquo;s role is now to represent and support the individual throughout their involvement with the specified Care Act function (such as a needs assessment, carer&rsquo;s assessment, care and support planning, or a review).`,
+  legal: `<strong>Regulation 5(1):</strong> Independent advocates <strong>must</strong> perform their functions in the manner specified in this regulation. The word &ldquo;must&rdquo; indicates a <em>legal duty</em>, not a discretionary power.`,
+  buttons: [{label:'Begin: Determine how to represent the individual', next:'step1', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 1 &mdash; Reg 5(2)
+// ---------------------------------------------------------------
+step1: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 1: Determine the Best Way to Represent and Support the Individual',
+  desc: `The advocate&rsquo;s first duty is to work out, in the particular circumstances of this case, how best to represent and support the individual. This is a professional judgement that should take account of the individual&rsquo;s communication needs, preferences, culture, and the nature of the Care Act function involved.`,
+  legal: `<strong>Regulation 5(2):</strong> &ldquo;An independent advocate <strong>must</strong> determine in all the circumstances how best to represent and support the individual in question&hellip;&rdquo; This is a broad professional interpretive duty &mdash; the advocate must use their judgement throughout, and at all times must act with a view to promoting the individual&rsquo;s well-being.`,
+  buttons: [{label:'Continue', next:'step2', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 2 &mdash; Section 1(2) Care Act 2014 / Reg 5(2)
+// ---------------------------------------------------------------
+step2: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 2: Promote the Individual\'s Well-being at All Times',
+  desc: `Throughout everything the advocate does, they <strong>must</strong> act with a view to promoting the individual&rsquo;s well-being. This is not a one-off step but a continuous overarching obligation that colours every action the advocate takes.`,
+  legal: `<strong>Regulation 5(2)</strong> expressly requires that the advocate &ldquo;at all times must act with a view to promoting the individual&rsquo;s well-being.&rdquo; The concept of well-being is defined in <strong>section 1(2) of the Care Act 2014</strong> and includes personal dignity, physical and mental health, emotional well-being, social well-being, protection from abuse and neglect, control over day-to-day life, participation in work/education/training, and domestic, family, and personal relationships.`,
+  buttons: [{label:'Continue', next:'step3', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 3 &mdash; Reg 5(3)(a)
+// ---------------------------------------------------------------
+step3: {
+  type: 'action',
+  badge: 'Action',
+  title: 'Step 3: Meet the Individual in Private',
+  desc: `The advocate should meet with the individual in a private setting. This helps establish trust, ensures confidentiality, and allows the individual to speak freely without the presence of professionals, family members, or carers who may influence what they say.`,
+  legal: `<strong>Regulation 5(3)(a):</strong> The advocate <strong>must</strong>, to the extent that it is practicable and appropriate to do so, meet the individual in private. This is a <em>duty</em>, though the words &ldquo;practicable and appropriate&rdquo; recognise there may be practical constraints.`,
+  buttons: [{label:'Continue to capacity assessment for consultations', next:'decisionCapacity', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// DECISION: CAPACITY TO CONSENT TO CONSULTATIONS &mdash; Reg 5(4)
+// ---------------------------------------------------------------
+decisionCapacity: {
+  type: 'decision',
+  badge: 'Decision',
+  title: 'Does the Individual Have Capacity to Consent to Consultations?',
+  desc: `Before consulting with others, the advocate needs to consider whether the individual has the mental capacity (or competence) to consent to those consultations taking place. This is important because consulting others may involve sharing personal information about the individual.<br><br>This capacity question determines the <strong>legal basis</strong> on which consultations proceed &mdash; consent or best interests. It does <em>not</em> determine which groups may be consulted: both professionals and family/carers/friends may be consulted on either basis.`,
+  legal: `<strong>Regulation 5(4):</strong> The condition for consultations under Regulation 5(3)(b) is that:<br>&bull; <strong>5(4)(a):</strong> the individual has capacity, or is competent, to consent to the advocate consulting with those persons, and does so consent; <strong>or</strong><br>&bull; <strong>5(4)(b):</strong> the individual does not have capacity, or is not competent, so to consent but the advocate is satisfied that consulting would be in the individual&rsquo;s <strong>best interests</strong>.<br><br>The Mental Capacity Act 2005 applies to assessments of capacity.`,
+  buttons: [
+    {label:'Yes &mdash; the individual has capacity to consent', next:'step6_consent', style:'btn-yes'},
+    {label:'No &mdash; the individual lacks capacity to consent', next:'step7_bestinterest', style:'btn-no'}
+  ]
+},
+
+// ---------------------------------------------------------------
+// STEP 6: Obtain consent &mdash; Reg 5(4)(a)
+// ---------------------------------------------------------------
+step6_consent: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 6: Obtain the Individual\'s Consent for Consultations',
+  desc: `Because the individual has capacity, the advocate <strong>must</strong> obtain their consent before consulting with others. The individual should understand who will be consulted, why, and what information may be shared.`,
+  legal: `<strong>Regulation 5(4)(a):</strong> The condition for consultations under 5(3)(b) is met where &ldquo;the individual has capacity, or is competent, to consent to the independent advocate consulting with a person mentioned in that sub-paragraph, and does so consent.&rdquo;`,
+  buttons: [{label:'Continue to consultations', next:'consultations_cap', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 7: Best interests &mdash; Reg 5(4)(b)
+// ---------------------------------------------------------------
+step7_bestinterest: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 7: Ensure Consultations Are in the Individual\'s Best Interests',
+  desc: `Because the individual lacks capacity to consent to consultations, the advocate <strong>must</strong> be satisfied that any consultations carried out are in the individual&rsquo;s best interests. The advocate should consider the individual&rsquo;s past and present wishes, feelings, beliefs, and values.`,
+  legal: `<strong>Regulation 5(4)(b):</strong> The condition for consultations under 5(3)(b) is met where &ldquo;the individual does not have capacity, or is not competent, so to consent but the independent advocate is satisfied that consulting with a person mentioned in that sub-paragraph would be in the individual&rsquo;s best interests.&rdquo; Best interests must be determined in accordance with section 4 of the Mental Capacity Act 2005.`,
+  buttons: [{label:'Continue to consultations', next:'consultations_nocap', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// CONSULTATIONS (with consent) &mdash; Reg 5(3)(b)(i) and (ii)
+// ---------------------------------------------------------------
+consultations_cap: {
+  type: 'action',
+  badge: 'Action',
+  title: 'Consult with Relevant People (With the Individual\'s Consent)',
+  desc: `With the individual&rsquo;s consent obtained, the advocate should now consult with relevant people. The Regulations identify two groups:<br><br><strong>Professionals</strong> &mdash; persons who are, or have been, engaged in providing care or treatment for the individual in a professional capacity or for remuneration (for example, social workers, healthcare professionals, paid carers).<br><br><strong>Family, carers, and friends</strong> &mdash; other persons who may be in a position to comment on the individual&rsquo;s wishes, beliefs, or values.<br><br>Both groups may be consulted. The purpose is to gather information and perspectives that will help the advocate represent the individual effectively.`,
+  legal: `<strong>Regulation 5(3)(b):</strong> The advocate must, to the extent practicable and appropriate, and provided the condition in 5(4) is met, consult with:<br>&bull; <strong>5(3)(b)(i):</strong> &ldquo;persons who are, or have been, engaged in providing care or treatment for the individual in a professional capacity or for remuneration&rdquo;; and<br>&bull; <strong>5(3)(b)(ii):</strong> &ldquo;other persons who may be in a position to comment on the individual&rsquo;s wishes, beliefs or values, for example family members, carers or friends of the individual.&rdquo;`,
+  buttons: [{label:'Continue to core advocacy duties', next:'step8_understand', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// CONSULTATIONS (best interests) &mdash; Reg 5(3)(b)(i) and (ii)
+// ---------------------------------------------------------------
+consultations_nocap: {
+  type: 'action',
+  badge: 'Action',
+  title: 'Consult with Relevant People (On a Best Interests Basis)',
+  desc: `The advocate has determined that consultations are in the individual&rsquo;s best interests. The advocate should now consult with relevant people. The Regulations identify two groups:<br><br><strong>Professionals</strong> &mdash; persons who are, or have been, engaged in providing care or treatment for the individual in a professional capacity or for remuneration (for example, social workers, healthcare professionals, paid carers).<br><br><strong>Family, carers, and friends</strong> &mdash; other persons who may be in a position to comment on the individual&rsquo;s wishes, beliefs, or values. Where the individual lacks capacity, consulting with those who know them well is particularly important for understanding their likely views.<br><br>Both groups may be consulted on a best interests basis.`,
+  legal: `<strong>Regulation 5(3)(b):</strong> The advocate must, to the extent practicable and appropriate, and provided the condition in 5(4) is met, consult with:<br>&bull; <strong>5(3)(b)(i):</strong> &ldquo;persons who are, or have been, engaged in providing care or treatment for the individual in a professional capacity or for remuneration&rdquo;; and<br>&bull; <strong>5(3)(b)(ii):</strong> &ldquo;other persons who may be in a position to comment on the individual&rsquo;s wishes, beliefs or values, for example family members, carers or friends of the individual.&rdquo;<br><br>Here the condition in <strong>5(4)(b)</strong> applies: the advocate is satisfied that consulting is in the individual&rsquo;s best interests.`,
+  buttons: [{label:'Continue to core advocacy duties', next:'step8_understand', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 8 &mdash; Reg 5(5)(a)(i)
+// ---------------------------------------------------------------
+step8_understand: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 8: Assist in Understanding the Care Act Function',
+  desc: `The advocate <strong>must</strong> help the individual understand the specific Care Act function they are involved in. For example, if it is a needs assessment, the advocate should explain what a needs assessment is, how it works, what the individual can expect, and what their rights are within that process.`,
+  legal: `<strong>Regulation 5(5)(a)(i):</strong> The advocate <strong>must</strong> assist the individual in &ldquo;understanding the function in the exercise of which the individual is involved.&rdquo;`,
+  buttons: [{label:'Continue', next:'step9_views', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 9 &mdash; Reg 5(5)(a)(ii)
+// ---------------------------------------------------------------
+step9_views: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 9: Assist in Communicating Views, Wishes, and Feelings',
+  desc: `The advocate <strong>must</strong> help the individual communicate their views, wishes, and feelings to the relevant decision-makers. This is central to the advocacy role &mdash; ensuring the individual&rsquo;s voice is heard in the process.`,
+  legal: `<strong>Regulation 5(5)(a)(ii):</strong> The advocate <strong>must</strong> assist the individual in &ldquo;communicating the individual&rsquo;s views, wishes or feelings.&rdquo; This is a core duty of the advocate.`,
+  buttons: [{label:'Continue', next:'step10_needs', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 10 &mdash; Reg 5(5)(a)(iii)
+// ---------------------------------------------------------------
+step10_needs: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 10: Assist in Understanding How Needs Could Be Met',
+  desc: `The advocate <strong>must</strong> help the individual understand the different ways their care and support needs might be met &mdash; whether by the local authority or otherwise. This includes exploring options beyond what the local authority may offer and helping the individual think about what would work best for them.`,
+  legal: `<strong>Regulation 5(5)(a)(iii):</strong> The advocate <strong>must</strong> assist the individual in &ldquo;understanding how the individual&rsquo;s care and support, or support, needs could be met by the local authority or otherwise.&rdquo; The words &ldquo;or otherwise&rdquo; are significant &mdash; the advocate should help the individual consider all options, not only those the local authority proposes.`,
+  buttons: [{label:'Continue', next:'step11_decisions', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 11 &mdash; Reg 5(5)(a)(iv)
+// ---------------------------------------------------------------
+step11_decisions: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 11: Assist in Making Care and Support Decisions',
+  desc: `The advocate <strong>must</strong> support the individual in making informed decisions about their care and support arrangements. This involves helping them weigh up options, understand consequences, and express their preferences. The individual&rsquo;s autonomy and right to make their own decisions (where they have capacity) must be respected.`,
+  legal: `<strong>Regulation 5(5)(a)(iv):</strong> The advocate <strong>must</strong> assist the individual in &ldquo;making decisions in respect of care and support arrangements.&rdquo;`,
+  buttons: [{label:'Continue', next:'decisionChallenge', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// DECISION: CHALLENGE LA DECISIONS &mdash; Reg 5(5)(a)(v)
+// This is about the INDIVIDUAL'S WISH to challenge, regardless of
+// capacity. It is a freestanding duty separate from 5(8).
+// ---------------------------------------------------------------
+decisionChallenge: {
+  type: 'decision',
+  badge: 'Decision',
+  title: 'Does the Individual Wish to Challenge Any Local Authority Decisions?',
+  desc: `Consider whether the individual wishes to challenge any decisions made by the local authority in relation to the Care Act function. This might include disagreement with the outcome of an assessment, the content of a care plan, or another decision.<br><br>This question is about the <strong>individual&rsquo;s wish</strong>. It is not a question about whether the individual has mental capacity. An individual who lacks capacity may still express a wish to challenge a decision, and that wish should be respected and supported.<br><br>Note: Even if the individual does not wish to challenge, the advocate has a separate, independent duty under <strong>Regulation 5(8)</strong> to challenge decisions where the individual lacks capacity to do so themselves and the advocate considers the decision inconsistent with the section 1 well-being duties. That duty is addressed later at Step 24.`,
+  legal: `<strong>Regulation 5(5)(a)(v):</strong> The advocate must assist the individual in &ldquo;challenging the local authority&rsquo;s decisions <strong>if the individual so wishes</strong>.&rdquo; This is a freestanding duty triggered by the individual&rsquo;s wish. It says nothing about capacity &mdash; it applies equally whether the individual has or lacks capacity. It follows directly from 5(5)(a)(iv) in the sequence of the advocate&rsquo;s duties under 5(5)(a).<br><br>The separate mandatory duty of the advocate in <strong>Regulation 5(8)</strong> is a distinct provision addressed at Step 24 below.`,
+  buttons: [
+    {label:'Yes &mdash; the individual wishes to challenge', next:'step12_challenge', style:'btn-yes'},
+    {label:'No &mdash; the individual does not wish to challenge', next:'step13_LAduties', style:'btn-no'}
+  ]
+},
+
+// ---------------------------------------------------------------
+// STEP 12: Assist in challenging &mdash; Reg 5(5)(a)(v)
+// Single step: the individual's wish to challenge, regardless of
+// capacity. Includes nuanced discussion of capacity context.
+// ---------------------------------------------------------------
+step12_challenge: {
+  type: 'action',
+  badge: 'Action',
+  title: 'Step 12: Assist the Individual in Challenging Local Authority Decisions',
+  desc: `The individual wishes to challenge a decision. The advocate <strong>must</strong> assist them in doing so. This may involve helping them understand the complaints process, assisting with writing letters, supporting them at meetings, or helping them access further advice (for example, legal advice about judicial review).<br><br>The key issue here is the <strong>individual&rsquo;s wish</strong>. The advocate&rsquo;s role under Regulation 5(5)(a)(v) is to support and assist that wish, not to replace it with the advocate&rsquo;s own view of what is in the individual&rsquo;s best interests.<br><br><strong>Where the individual who wishes to challenge also lacks capacity or is not competent:</strong> The advocate may have additional duties arising from the Mental Capacity Act 2005 &mdash; for example, to assist the individual in making a focussed challenge to the extent they are able. However, the advocate should not adopt a paternalistic best-interests perspective that overrides or supplants the individual&rsquo;s expressed wish. The overriding principles of section 1(2) of the Care Act 2014 apply, including:<br><br>&bull; <strong>Section 1(2)(a):</strong> &ldquo;personal dignity (including treatment of the individual with respect)&rdquo;<br>&bull; <strong>Section 1(2)(d):</strong> &ldquo;control by the individual over day-to-day life (including over care and support, or support, provided to the individual and the way in which it is provided)&rdquo;<br><br>In specific cases there may be a tension between respecting the individual&rsquo;s wish to challenge and other well-being considerations &mdash; for example, <strong>section 1(2)(c): &ldquo;protection from abuse and neglect.&rdquo;</strong> Where such a tension arises, it can be addressed through the advocate&rsquo;s separate, freestanding duty under <strong>Regulation 5(8)</strong> (Step 24 below), which requires the advocate to exercise their own professional judgement about whether the local authority&rsquo;s decision is inconsistent with section 1 duties. The complex interplay between these duties &mdash; respecting the individual&rsquo;s wishes, promoting dignity and autonomy, protecting from harm, and exercising independent professional judgement &mdash; is part of the professional complexity of the advocate&rsquo;s role.`,
+  legal: `<strong>Regulation 5(5)(a)(v):</strong> The advocate <strong>must</strong> assist the individual in &ldquo;challenging the local authority&rsquo;s decisions if the individual so wishes.&rdquo; This duty is triggered by the individual&rsquo;s own wish to challenge. It does not depend on the individual&rsquo;s capacity.<br><br><strong>Section 1(2) Care Act 2014:</strong> The advocate must at all times promote the individual&rsquo;s well-being, which includes &ldquo;personal dignity&rdquo; (s1(2)(a)) and &ldquo;control by the individual over day-to-day life&rdquo; (s1(2)(d)). These principles support respecting the individual&rsquo;s expressed wish to challenge rather than substituting a paternalistic judgement.<br><br><strong>Note:</strong> The advocate&rsquo;s separate duty under <strong>Regulation 5(8)</strong> to independently challenge decisions inconsistent with section 1 well-being duties (where the individual lacks capacity to challenge) is addressed at Step 24 below. That duty operates alongside, not instead of, the duty to respect the individual&rsquo;s wish.`,
+  buttons: [{label:'Continue', next:'step13_LAduties', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 13: LA duties &mdash; Reg 5(5)(b)
+// ---------------------------------------------------------------
+step13_LAduties: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 13: Ensure Understanding of Local Authority Duties Under Part 1',
+  desc: `The advocate <strong>must</strong>, so far as is practicable, ensure the individual understands the duties the local authority owes them under Part 1 of the Care Act 2014. This includes duties around assessment, eligibility, care planning, safeguarding, and the general duty to promote well-being.`,
+  legal: `<strong>Regulation 5(5)(b):</strong> The advocate <strong>must</strong>, so far as is practicable, &ldquo;ensure that the individual understands the local authority&rsquo;s duties under Part 1 of the Act and the individual&rsquo;s rights and obligations under that Part and any other rights and obligations of the individual which may be relevant to those obligations.&rdquo;`,
+  buttons: [{label:'Continue', next:'step14_rights', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 14: Rights and obligations &mdash; Reg 5(5)(b)
+// ---------------------------------------------------------------
+step14_rights: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 14: Ensure the Individual Understands Their Rights and Obligations',
+  desc: `The advocate <strong>must</strong> help the individual understand their own rights and any obligations they have under Part 1 of the Care Act 2014. For example, the individual has the right to have their needs assessed but may also have obligations relating to financial assessment or providing information.`,
+  legal: `<strong>Regulation 5(5)(b):</strong> This is part of the same duty as Step 13. The advocate must ensure the individual understands &ldquo;the individual&rsquo;s rights and obligations under that Part.&rdquo; Steps 13 and 14 together cover the two limbs of 5(5)(b): the local authority&rsquo;s duties, and the individual&rsquo;s own rights and obligations.`,
+  buttons: [{label:'Continue', next:'step15_otherrights', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 15: Other relevant rights &mdash; Reg 5(5)(b) and 5(5)(c)
+// ---------------------------------------------------------------
+step15_otherrights: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 15: Ensure Understanding of Other Relevant Rights',
+  desc: `Beyond the Care Act itself, the individual may have other relevant rights and obligations &mdash; for example, rights under the Human Rights Act 1998, the Equality Act 2010, the Mental Capacity Act 2005, or other legislation. The advocate <strong>must</strong> ensure the individual understands any such rights and obligations that may be relevant. The advocate must also be prepared to make representations to secure those rights.`,
+  legal: `<strong>Regulation 5(5)(b):</strong> The advocate must ensure the individual understands &ldquo;any other rights and obligations of the individual which may be relevant to those obligations.&rdquo; This extends the duty beyond Care Act rights to the wider legal framework.<br><br><strong>Regulation 5(5)(c):</strong> The advocate must also &ldquo;make such representations as are necessary for the purpose of securing the individual&rsquo;s rights in relation to the exercise of the function.&rdquo; Understanding the rights (5(5)(b)) and acting to secure them (5(5)(c)) are closely connected duties.`,
+  buttons: [{label:'Continue', next:'step16_representations', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 16: Make representations &mdash; Reg 5(5)(c)
+// ---------------------------------------------------------------
+step16_representations: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 16: Make Necessary Representations to Secure Rights',
+  desc: `Where the individual&rsquo;s rights are not being properly respected or upheld, the advocate <strong>must</strong> make the necessary representations on their behalf to secure those rights in relation to the exercise of the Care Act function. This might involve writing to the local authority, attending meetings, or escalating concerns.`,
+  legal: `<strong>Regulation 5(5)(c):</strong> The advocate <strong>must</strong> &ldquo;make such representations as are necessary for the purpose of securing the individual&rsquo;s rights in relation to the exercise of the function.&rdquo; This is a <em>duty</em>, not a discretion. The representations must relate to the individual&rsquo;s rights in the context of the specific Care Act function being exercised.`,
+  buttons: [{label:'Continue', next:'decisionRecords', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// DECISION: ACCESS RECORDS &mdash; Reg 5(6)
+// ---------------------------------------------------------------
+decisionRecords: {
+  type: 'decision',
+  badge: 'Decision',
+  title: 'Does the Advocate Need to Access Relevant Records?',
+  desc: `The advocate may need to examine records held by the local authority or other bodies that are relevant to the individual&rsquo;s case. This is a <strong>power</strong> (not a duty) &mdash; the advocate <em>may</em> do this if they consider it necessary, but is not required to do so in every case.`,
+  legal: `<strong>Regulation 5(6):</strong> &ldquo;In particular, an independent advocate <strong>may</strong> examine and take copies of any relevant records relating to the individual&rdquo; in the circumstances set out in 5(6)(a) and 5(6)(b). The word &ldquo;may&rdquo; indicates this is a <em>power</em>, not a duty.`,
+  buttons: [
+    {label:'Yes &mdash; and the individual has capacity to consent', next:'step19_records_cap', style:'btn-yes'},
+    {label:'Yes &mdash; but the individual lacks capacity to consent', next:'step19_records_nocap', style:'btn-yes'},
+    {label:'No &mdash; not necessary at this time', next:'decisionConcerns', style:'btn-no'}
+  ]
+},
+
+// ---------------------------------------------------------------
+// STEP 19: Records with capacity &mdash; Reg 5(6)(a)
+// ---------------------------------------------------------------
+step19_records_cap: {
+  type: 'power',
+  badge: 'Power',
+  title: 'Step 19: Examine Relevant Records (With Consent)',
+  desc: `The individual has capacity, so the advocate should obtain their consent before examining any records. The advocate may examine any relevant records relating to the individual.`,
+  legal: `<strong>Regulation 5(6)(a):</strong> The advocate may examine and take copies of relevant records where &ldquo;the individual has capacity, or is competent, to consent to the records being made available to the independent advocate and does so consent.&rdquo;`,
+  buttons: [{label:'Continue to taking copies', next:'step20_copies_cap', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 19: Records without capacity &mdash; Reg 5(6)(b)
+// ---------------------------------------------------------------
+step19_records_nocap: {
+  type: 'power',
+  badge: 'Power',
+  title: 'Step 19: Examine Relevant Records (Best Interests)',
+  desc: `The individual lacks capacity, so the advocate may examine relevant records if they consider it is in the individual&rsquo;s best interests to do so.`,
+  legal: `<strong>Regulation 5(6)(b):</strong> The advocate may examine and take copies of relevant records where &ldquo;the individual does not have capacity, or is not competent, to consent to the records being made available to the independent advocate but the independent advocate considers it is in the best interests of the individual.&rdquo;`,
+  buttons: [{label:'Continue to taking copies', next:'step20_copies_nocap', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 20: Copies with capacity &mdash; Reg 5(6)(a)
+// ---------------------------------------------------------------
+step20_copies_cap: {
+  type: 'power',
+  badge: 'Power',
+  title: 'Step 20: Take Copies of Relevant Records (With Consent)',
+  desc: `With the individual&rsquo;s consent, the advocate may take copies of the records examined. This allows the advocate to review the material carefully and refer back to it when making representations or preparing reports.`,
+  legal: `<strong>Regulation 5(6)(a):</strong> The power to take copies accompanies the power to examine records under 5(6), subject to the individual&rsquo;s consent.`,
+  buttons: [{label:'Continue', next:'decisionConcerns', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 20: Copies without capacity &mdash; Reg 5(6)(b)
+// ---------------------------------------------------------------
+step20_copies_nocap: {
+  type: 'power',
+  badge: 'Power',
+  title: 'Step 20: Take Copies of Relevant Records (Best Interests)',
+  desc: `Where the individual lacks capacity, the advocate may take copies if they consider it is in the individual&rsquo;s best interests. The advocate should document their reasoning for accessing these records.`,
+  legal: `<strong>Regulation 5(6)(b):</strong> The power to take copies accompanies the power to examine records under 5(6), determined by the advocate&rsquo;s assessment of best interests.`,
+  buttons: [{label:'Continue', next:'decisionConcerns', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// DECISION: CONCERNS &mdash; Reg 5(5)(d)
+// Now comes BEFORE the capacity/competence-contingent duties
+// ---------------------------------------------------------------
+decisionConcerns: {
+  type: 'decision',
+  badge: 'Decision',
+  title: 'Are There Concerns About the Assessment or Planning Process?',
+  desc: `The advocate should consider whether they have concerns about the <strong>process</strong> by which the assessment or care planning was carried out, or about the <strong>outcomes</strong> arising from it. This distinction matters because:<br><br>
+  <strong>Process concerns</strong> relate to <em>how</em> the assessment or planning function was exercised &mdash; for example, whether the individual was properly consulted, whether all relevant needs were considered, or whether the process followed correct procedures.<br><br>
+  <strong>Outcome concerns</strong> relate to <em>what resulted</em> from the assessment or planning &mdash; for example, whether the care plan adequately meets the individual&rsquo;s assessed needs, or whether the outcomes are consistent with the individual&rsquo;s well-being.`,
+  legal: `<strong>Regulation 5(5)(d):</strong> &ldquo;Where the independent advocate has concerns about the manner in which the assessment or planning function has been exercised or the outcomes arising from it, prepare a report for the local authority outlining those concerns.&rdquo; This captures both the exercise of the function (process) and the outcomes arising from it.`,
+  buttons: [
+    {label:'Yes &mdash; process concerns', next:'step17_process', style:'btn-yes'},
+    {label:'Yes &mdash; outcome concerns', next:'step18_outcome', style:'btn-neutral'},
+    {label:'No concerns at this time', next:'decisionCommunicate', style:'btn-no'}
+  ]
+},
+
+// ---------------------------------------------------------------
+// STEP 17 &mdash; Reg 5(5)(d)
+// ---------------------------------------------------------------
+step17_process: {
+  type: 'action',
+  badge: 'Action',
+  title: 'Step 17: Prepare Report on Assessment/Planning Process Concerns',
+  desc: `The advocate should prepare a written report for the local authority setting out their concerns about the <strong>process</strong> by which the assessment or planning function was exercised. This report should clearly identify what went wrong in the process, reference the relevant legal duties, and explain what should have happened.`,
+  legal: `<strong>Regulation 5(5)(d):</strong> Where the advocate has concerns about &ldquo;the manner in which the assessment or planning function has been exercised,&rdquo; they must &ldquo;prepare a report for the local authority outlining those concerns.&rdquo;`,
+  buttons: [{label:'Continue', next:'decisionCommunicate', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 18 &mdash; Reg 5(5)(d)
+// ---------------------------------------------------------------
+step18_outcome: {
+  type: 'action',
+  badge: 'Action',
+  title: 'Step 18: Prepare Report on Outcome Concerns',
+  desc: `The advocate should prepare a written report for the local authority setting out their concerns about the <strong>outcomes</strong> arising from the assessment or planning function. This report should explain why the outcomes do not adequately meet the individual&rsquo;s needs or are inconsistent with the local authority&rsquo;s duty to promote well-being.`,
+  legal: `<strong>Regulation 5(5)(d):</strong> Where the advocate has concerns about &ldquo;the outcomes arising from&rdquo; the assessment or planning function, they must &ldquo;prepare a report for the local authority outlining those concerns.&rdquo;`,
+  buttons: [{label:'Continue', next:'decisionCommunicate', style:'btn-next'}]
+},
+
+// ===============================================================
+// CAPACITY/COMPETENCE-CONTINGENT DUTIES
+// Regulations 5(7) and 5(8) both apply only where the individual
+// lacks capacity (adults) or competence (children). They are
+// grouped here as a distinct section of the flowchart.
+//
+// Note on "competence": The Regulations refer throughout to
+// individuals who do not have "capacity, or [are] not competent."
+// "Capacity" refers to mental capacity as defined by the Mental
+// Capacity Act 2005 and applies to adults (aged 16+). "Competence"
+// refers to the common law concept (sometimes called Gillick
+// competence) used to assess whether a child has sufficient
+// understanding and maturity to make or communicate decisions.
+// Children may be subject to Care Act functions through transition
+// planning (sections 58-66) or as young carers (sections 17, 63-66).
+// ===============================================================
+
+// ---------------------------------------------------------------
+// DECISION: COMMUNICATION CAPACITY/COMPETENCE &mdash; Reg 5(7)
+// ---------------------------------------------------------------
+decisionCommunicate: {
+  type: 'decision',
+  badge: 'Decision &mdash; Capacity/Competence',
+  title: 'Does the Individual Lack Capacity or Competence to Communicate Their Views?',
+  desc: `The advocate should now consider whether the individual lacks the capacity (adults) or competence (children) to communicate their own views, wishes, and feelings. This is a distinct question from earlier capacity considerations &mdash; it concerns the individual&rsquo;s ability to <em>communicate</em> specifically, not their capacity to consent or to make decisions generally.<br><br>If the individual <strong>does</strong> have capacity or competence to communicate their views, Regulation 5(7) does not apply and the advocate can proceed. If the individual <strong>lacks</strong> capacity or competence to communicate, the advocate has a specific duty to communicate on their behalf.<br><br><em>Note on &ldquo;competence&rdquo;:</em> The Regulations refer to individuals who do not have &ldquo;capacity, or [are] not competent.&rdquo; &ldquo;Capacity&rdquo; relates to mental capacity under the Mental Capacity Act 2005 (adults). &ldquo;Competence&rdquo; relates to the common law concept (sometimes called Gillick competence) applicable to children, who may be involved in Care Act functions through transition planning or as young carers.`,
+  legal: `<strong>Regulation 5(7):</strong> &ldquo;Where the individual does not have capacity, or is not competent, to communicate his or her views, wishes or feelings, the independent advocate must do so to the extent the independent advocate can ascertain them.&rdquo;<br><br>This duty <em>only arises</em> where the individual lacks capacity or competence to communicate. Where the individual can communicate their own views, this provision does not apply.`,
+  buttons: [
+    {label:'Yes &mdash; the individual lacks capacity/competence to communicate', next:'step21_communicate', style:'btn-yes'},
+    {label:'No &mdash; the individual can communicate their own views', next:'decisionChallengeCapacity', style:'btn-no'}
+  ]
+},
+
+// ---------------------------------------------------------------
+// STEP 21: Communicate on behalf &mdash; Reg 5(7)
+// ---------------------------------------------------------------
+step21_communicate: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 21: Communicate the Individual\'s Views on Their Behalf',
+  desc: `Where the individual does not have capacity, or is not competent, to communicate their own views, wishes, or feelings, the advocate <strong>must</strong> step in and communicate those views on their behalf. The advocate should draw on everything they have learned about the individual &mdash; from meeting them, from consultations with others, and from records &mdash; to represent the individual&rsquo;s likely views as faithfully as possible.`,
+  legal: `<strong>Regulation 5(7):</strong> &ldquo;Where the individual does not have capacity, or is not competent, to communicate his or her views, wishes or feelings, the independent advocate <strong>must</strong> do so to the extent the independent advocate can ascertain them.&rdquo;`,
+  buttons: [{label:'Continue', next:'step22_ascertain', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// STEP 22: Ascertain views &mdash; Reg 5(7)
+// ---------------------------------------------------------------
+step22_ascertain: {
+  type: 'duty',
+  badge: 'Duty',
+  title: 'Step 22: Ascertain the Individual\'s Views to the Extent Possible',
+  desc: `The advocate <strong>must</strong> make every reasonable effort to ascertain what the individual&rsquo;s views, wishes, and feelings are, even though the individual cannot communicate them directly. This may involve using different communication methods, consulting people who know the individual well, reviewing past records of expressed preferences, and spending time with the individual to observe non-verbal cues.`,
+  legal: `<strong>Regulation 5(7):</strong> The advocate must communicate the individual&rsquo;s views &ldquo;to the extent the independent advocate can ascertain them.&rdquo; The words &ldquo;to the extent&hellip; can ascertain&rdquo; recognise that this may not always be fully achievable, but the advocate must make genuine efforts to understand and faithfully represent the individual&rsquo;s likely views.`,
+  buttons: [{label:'Continue', next:'decisionChallengeCapacity', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// DECISION: CHALLENGE CAPACITY/COMPETENCE &mdash; Reg 5(8)
+// ---------------------------------------------------------------
+decisionChallengeCapacity: {
+  type: 'decision',
+  badge: 'Decision &mdash; Capacity/Competence',
+  title: 'Does the Individual Lack Capacity or Competence to Challenge Decisions?',
+  desc: `The advocate should now consider whether the individual lacks the capacity (adults) or competence (children) to <em>challenge</em> a decision made in the exercise of the assessment or planning function. This is a distinct question from whether the individual <em>wishes</em> to challenge (addressed earlier at Step 12 under Regulation 5(5)(a)(v)).<br><br>If the individual lacks this capacity or competence, the advocate has an independent, <strong>mandatory</strong> duty to challenge decisions that the advocate themselves considers are inconsistent with the local authority&rsquo;s section 1 well-being duties. This duty is placed directly on the advocate and does not depend on the individual&rsquo;s wishes.`,
+  legal: `<strong>Regulation 5(8):</strong> &ldquo;Where the individual does not have capacity, or is not competent, to challenge a decision made in the exercise of the assessment or planning function, the independent advocate <strong>must</strong> challenge the decision if the independent advocate considers the decision to be inconsistent with the authority&rsquo;s general duty under section 1 of the Act (duty to promote the individual&rsquo;s well-being).&rdquo;<br><br>This is a separate provision from 5(5)(a)(v) (which is about the individual&rsquo;s wish to challenge). Where the individual <em>has</em> capacity or competence to challenge, this provision does not apply &mdash; the duty to assist in challenging is governed by 5(5)(a)(v) and the individual&rsquo;s own wish.`,
+  buttons: [
+    {label:'Yes &mdash; the individual lacks capacity/competence to challenge', next:'step24_mustchallenge', style:'btn-yes'},
+    {label:'No &mdash; the individual has capacity/competence to challenge', next:'continueMonitoring', style:'btn-no'}
+  ]
+},
+
+// ---------------------------------------------------------------
+// STEP 24: Must challenge &mdash; Reg 5(8)
+// ---------------------------------------------------------------
+step24_mustchallenge: {
+  type: 'duty',
+  badge: 'Duty &mdash; Mandatory',
+  title: 'Step 24: The Advocate Must Challenge Decisions Inconsistent with Well-being Duties',
+  desc: `This is a critical, <strong>mandatory</strong> duty. The individual lacks capacity or competence to challenge decisions themselves, so the advocate <strong>must</strong> challenge any decision made in the exercise of the assessment or planning function if the advocate considers it is inconsistent with the local authority&rsquo;s duties under <strong>section 1</strong> of the Care Act 2014 (the general duty to promote well-being).<br><br>This duty requires the advocate to exercise independent professional judgement. The advocate must actively evaluate whether the local authority&rsquo;s decisions genuinely promote the individual&rsquo;s well-being. The duty is placed on the <em>advocate</em>, not on the individual &mdash; it is the advocate&rsquo;s own consideration of consistency with section 1 that triggers the obligation.<br><br>Note the relationship with Step 12: where the individual <em>wishes</em> to challenge (regardless of capacity), the advocate assists that wish under 5(5)(a)(v). Here, under 5(8), the advocate has an <em>independent</em> duty to challenge where the individual lacks the capacity or competence to do so themselves. Both duties may operate simultaneously &mdash; for example, where an individual who lacks capacity expresses a wish to challenge <em>and</em> the advocate independently considers the decision inconsistent with section 1.`,
+  legal: `<strong>Regulation 5(8):</strong> &ldquo;Where the individual does not have capacity, or is not competent, to challenge a decision made in the exercise of the assessment or planning function, the independent advocate <strong>must</strong> challenge the decision if the independent advocate considers the decision to be inconsistent with the authority&rsquo;s general duty under section 1 of the Act (duty to promote the individual&rsquo;s well-being).&rdquo;<br><br>This is a <em>duty</em>, not a discretion. The use of &ldquo;must&rdquo; is deliberate and creates a mandatory obligation on the advocate.`,
+  buttons: [{label:'Continue', next:'continueMonitoring', style:'btn-next'}]
+},
+
+// ---------------------------------------------------------------
+// CONTINUE MONITORING (not in Regulations)
+// ---------------------------------------------------------------
+continueMonitoring: {
+  type: 'loop',
+  badge: 'Ongoing',
+  title: 'Continue Monitoring and Support',
+  desc: `The advocacy role does not end with a single pass through these steps. The advocate should continue to monitor the individual&rsquo;s situation and provide ongoing support. New concerns may arise, circumstances may change, and decisions may need to be revisited. The advocate may cycle back through earlier steps as needed &mdash; for example, if a new assessment is carried out, or if a care plan is reviewed.<br><br>This &ldquo;continue monitoring and support&rdquo; step does not appear in the Regulations themselves. It is included here as a practical addition to reflect the reality of ongoing advocacy practice: an advocate&rsquo;s work within an instruction for an individual does not end arbitrarily but continues as a circular process for as long as the advocate is appointed.`,
+  legal: `While this step is not explicitly stated in the Regulations, it is consistent with the advocate&rsquo;s overarching duties under <strong>Regulation 5(1) and 5(2)</strong> and the general duty to promote well-being under <strong>section 1(2) of the Care Act 2014</strong>. The advocate remains responsible for the individual throughout the period of their appointment.`,
+  buttons: [
+    {label:'Start again for a new matter within this instruction', next:'step1', style:'btn-restart'},
+    {label:'Return to the beginning', next:'start', style:'btn-back'}
+  ]
+}
+
+};
+
+// ============================================================
+// STATE MANAGEMENT
+// ============================================================
+let history = [];
+let currentStep = 'start';
+
+const container = document.getElementById('stepContainer');
+const historyList = document.getElementById('historyList');
+const historyPanel = document.getElementById('historyPanel');
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+
+const linearOrder = [
+  'start','step1','step2','step3','decisionCapacity',
+  'step6_consent','step7_bestinterest','consultations_cap','consultations_nocap',
+  'step8_understand','step9_views','step10_needs','step11_decisions',
+  'decisionChallenge','step12_challenge',
+  'step13_LAduties','step14_rights','step15_otherrights','step16_representations',
+  'decisionRecords','step19_records_cap','step19_records_nocap',
+  'step20_copies_cap','step20_copies_nocap',
+  'decisionConcerns','step17_process','step18_outcome',
+  'decisionCommunicate','step21_communicate','step22_ascertain',
+  'decisionChallengeCapacity','step24_mustchallenge','continueMonitoring'
+];
+
+function updateProgress() {
+  const idx = linearOrder.indexOf(currentStep);
+  const pct = Math.max(5, Math.round(((idx + 1) / linearOrder.length) * 100));
+  progressFill.style.width = pct + '%';
+  const progContainer = document.querySelector('.progress-container');
+  progContainer.setAttribute('aria-valuenow', pct);
+  progressLabel.textContent = `Step ${history.length + 1} \u2014 approximately ${pct}% through the flowchart`;
+}
+
+function renderStep(stepId) {
+  currentStep = stepId;
+  const step = steps[stepId];
+  if (!step) return;
+
+  updateProgress();
+
+  let html = `<div class="step-card ${step.type}" role="region" aria-label="${step.title.replace(/"/g, '&quot;')}">`;
+
+  const badgeClass = step.badge.toLowerCase().includes('duty') ? 'badge-duty'
+    : step.badge.toLowerCase().includes('power') ? 'badge-power'
+    : step.badge.toLowerCase().includes('decision') ? 'badge-decision'
+    : step.badge.toLowerCase().includes('ongoing') ? 'badge-loop'
+    : step.badge.toLowerCase().includes('starting') ? 'badge-info'
+    : 'badge-action';
+  html += `<span class="step-type-badge ${badgeClass}" aria-label="Step type: ${step.badge}">${step.badge}</span>`;
+
+  html += `<h2 class="step-title">${step.title}</h2>`;
+  html += `<div class="step-description">${step.desc}</div>`;
+
+  if (step.legal) {
+    html += `<div class="legal-context" role="note" aria-label="Legal context"><strong>Legal context:</strong> ${step.legal}</div>`;
+  }
+
+  html += `<div class="step-actions" role="group" aria-label="Available actions">`;
+  step.buttons.forEach((btn, i) => {
+    html += `<button class="btn ${btn.style}" onclick="goTo('${btn.next}', '${escapeForAttr(btn.label)}', '${stepId}')" aria-label="${stripHtml(btn.label)}">${btn.label}</button>`;
+  });
+  html += `</div>`;
+
+  if (history.length > 0) {
+    html += `<div class="back-row"><button class="btn btn-back" onclick="goBack()" aria-label="Go back to previous step">&larr; Go Back (change your previous answer)</button></div>`;
+  }
+
+  html += `</div>`;
+  container.innerHTML = html;
+
+  renderHistory();
+
+  container.scrollIntoView({behavior: 'smooth', block: 'start'});
+  const heading = container.querySelector('.step-title');
+  if (heading) heading.focus();
+}
+
+function goTo(nextId, answerLabel, fromId) {
+  history.push({stepId: fromId, answerLabel: stripHtml(decodeHtmlEntities(answerLabel))});
+  renderStep(nextId);
+}
+
+function goBack() {
+  if (history.length === 0) return;
+  const prev = history.pop();
+  renderStep(prev.stepId);
+}
+
+function renderHistory() {
+  if (history.length === 0) {
+    historyPanel.style.display = 'none';
+    return;
+  }
+  historyPanel.style.display = 'block';
+  let html = '';
+  history.forEach((h, i) => {
+    const step = steps[h.stepId];
+    const answerClass = h.answerLabel.toLowerCase().startsWith('yes') ? 'yes'
+      : h.answerLabel.toLowerCase().startsWith('no') ? 'no' : '';
+    html += `<li>
+      <span class="history-number" aria-hidden="true">${i + 1}</span>
+      <span><strong>${step ? step.title : h.stepId}</strong>
+      ${h.answerLabel ? ` &mdash; <span class="history-answer ${answerClass}">${h.answerLabel}</span>` : ''}</span>
+    </li>`;
+  });
+  historyList.innerHTML = html;
+}
+
+// ============================================================
+// ACCESSIBILITY
+// ============================================================
+let currentFontSize = 18;
+
+function changeSize(delta) {
+  currentFontSize = Math.min(32, Math.max(12, currentFontSize + delta));
+  document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
+  document.documentElement.style.setProperty('--font-size-small', (currentFontSize - 4) + 'px');
+  document.documentElement.style.setProperty('--font-size-h1', (currentFontSize + 10) + 'px');
+  document.documentElement.style.setProperty('--font-size-h2', (currentFontSize + 4) + 'px');
+  announceToScreenReader('Text size changed to ' + currentFontSize + ' pixels');
+}
+
+function resetSize() {
+  currentFontSize = 18;
+  document.documentElement.style.setProperty('--font-size-base', '18px');
+  document.documentElement.style.setProperty('--font-size-small', '14px');
+  document.documentElement.style.setProperty('--font-size-h1', '28px');
+  document.documentElement.style.setProperty('--font-size-h2', '22px');
+  announceToScreenReader('Text size reset to default');
+}
+
+function toggleContrast() {
+  const btn = document.getElementById('contrastBtn');
+  const isOn = document.body.classList.toggle('high-contrast');
+  btn.setAttribute('aria-pressed', isOn);
+  announceToScreenReader('High contrast mode ' + (isOn ? 'enabled' : 'disabled'));
+}
+
+function changeFont(val) {
+  document.body.classList.remove('font-dyslexic', 'font-serif');
+  if (val === 'dyslexic') document.body.classList.add('font-dyslexic');
+  else if (val === 'serif') document.body.classList.add('font-serif');
+  announceToScreenReader('Font changed to ' + val);
+}
+
+function announceToScreenReader(msg) {
+  let el = document.getElementById('sr-announce');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'sr-announce';
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-live', 'polite');
+    el.setAttribute('aria-atomic', 'true');
+    el.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+    document.body.appendChild(el);
+  }
+  el.textContent = '';
+  setTimeout(() => { el.textContent = msg; }, 100);
+}
+
+function stripHtml(str) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = str;
+  return tmp.textContent || tmp.innerText || '';
+}
+function escapeForAttr(str) {
+  return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+function decodeHtmlEntities(str) {
+  const tmp = document.createElement('textarea');
+  tmp.innerHTML = str;
+  return tmp.value;
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.altKey && e.key === 'b') {
+    e.preventDefault();
+    goBack();
+  }
+});
+
+renderStep('start');
+</script>
+</body>
+</html>
